@@ -1,0 +1,64 @@
+name: Node.js CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Capture test results
+        run: npm test -- --reporter json > test-results.json
+
+      - name: Upload test results artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: test-results.json
+
+  deploy:
+    needs: test
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+      - name: Download test results artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: test-results
+
+      - name: Display test results
+        run: cat test-results.json
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build application (if needed)
+        run: npm run build
+      - name: Deploy to self-hosted runner
+        run: |
+          # Your deployment script here
+          # Example: npm start or pm2 start app.js
