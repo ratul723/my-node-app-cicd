@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: "22"
 
       - name: Install dependencies
         run: npm install
@@ -62,3 +62,15 @@ jobs:
         run: |
           # Your deployment script here
           # Example: npm start or pm2 start app.js
+      - name: Run The application by PM2
+      - run: |
+          ls -a
+          pm2 status
+          # delete node-app process
+          pm2 delete node-app || true
+
+          #create a background process name node-app
+          pm2 start "npm start" --name="node-app"
+
+          #save the process list
+          pm2 save
