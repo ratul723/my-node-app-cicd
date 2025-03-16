@@ -12,10 +12,10 @@ jobs:
       - name: Install node js
         uses: actions/setup-node@v4
         with:
-          node-version: "lts/*" # Using LTS version
+          node-version: "22" # Using LTS version
 
       - name: Install packages
         run: npm install
 
       - name: Test the application
-        run: npm run test # Corrected test command
+        run: npm run check # Corrected test command
