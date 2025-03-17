@@ -20,12 +20,47 @@ jobs:
       - name: Test the application
         run: npm run check # Corrected test command
 
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install node js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22" # Using LTS version
+
+      - name: Install packages
+        run: |
+          mkdir build
+          cd build
+          echo "Hello world" > hello.txt
+
+      - name: Upload The Artifact
+        used: actions/upload-artifact@v4
+        with:
+          name: build_folder
+          path: ./build
+
+      - name: Test the application
+        run: npm run check # Corrected test command
+
   deploy:
     needs: test
     runs-on: self-hosted
     steps:
       - name: Checkout the code
         uses: actions/checkout@v3
+
+      - name: Receive the
+        uses: actions/download-artifact@v4
+        with:
+          name: build-folder
+
+      - name: Show the Artifact
+        run: |
+          ls -a
 
       - name: Install The package
         run: npm install
