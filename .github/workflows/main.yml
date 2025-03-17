@@ -39,7 +39,7 @@ jobs:
           echo "Hello world" > hello.txt
 
       - name: Upload The Artifact
-        used: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4
         with:
           name: build_folder
           path: ./build
