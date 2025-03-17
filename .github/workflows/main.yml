@@ -52,10 +52,10 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v3
 
-      - name: Receive the
+      - name: Receive the artifact
         uses: actions/download-artifact@v4
         with:
-          name: build-folder
+          name: build_folder
 
       - name: Show the Artifact
         run: |
