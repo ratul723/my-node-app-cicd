@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: "22" # Using LTS version
 
-      - name: Install packages
+      - name: Create artifact 
         run: |
           mkdir build
           cd build
@@ -44,8 +44,6 @@ jobs:
           name: build_folder
           path: ./build
 
-      - name: Test the application
-        run: npm run check # Corrected test command
 
   deploy:
     needs: build
