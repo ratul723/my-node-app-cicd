@@ -19,5 +19,10 @@ jobs:
       - name: Cleaning the DB
         run: echo "Clean the db"
 
-      - name: Print the selected Environment
-        run: echo "The Environment is ${{ github.event.inputs.environment }}"
+      - name: If the environment is staging
+        if: ${{github.event.inputs.environment ==  staging}}
+        run: echo "The Environment is staging"
+
+      - name: If the environment is production
+        if: ${{github.event.inputs.environment ==  production}}
+        run: echo "The Environment is production"
