@@ -1,0 +1,11 @@
+name: Scheduled job
+
+on:
+  schedule:
+    - cron:
+
+jobs:
+  scheduled_task:
+    steps:
+      - name: Print something
+        run: echo ""
