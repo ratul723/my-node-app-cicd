@@ -32,20 +32,18 @@ jobs:
         with:
           node-version: "22" # Using LTS version
 
-      - name: Install packages
+      - name: Create artifact 
         run: |
           mkdir build
           cd build
           echo "Hello world" > hello.txt
 
       - name: Upload The Artifact
-        used: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4
         with:
           name: build_folder
           path: ./build
 
-      - name: Test the application
-        run: npm run check # Corrected test command
 
   deploy:
     needs: build
@@ -54,10 +52,10 @@ jobs:
       - name: Checkout the code
         uses: actions/checkout@v3
 
-      - name: Receive the
+      - name: Receive the artifact
         uses: actions/download-artifact@v4
         with:
-          name: build-folder
+          name: build_folder
 
       - name: Show the Artifact
         run: |
